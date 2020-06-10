@@ -52,7 +52,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import AdviceComponent from 'components/Advice.vue'
 import BageComponent from 'components/Bage.vue'
 import ProgressComponent from 'components/Progress.vue'
@@ -61,8 +61,8 @@ import AddDrinkComponent from 'components/dialogs/AddDrink.vue'
 export default Vue.extend({
   components: { AdviceComponent, BageComponent, ProgressComponent, AddDrinkComponent },
   computed: {
-    ...mapGetters('achievements', ['todayTagretCompletePercentage']),
-    ...mapState('achievements', ['progress', 'advice', 'recordBages', 'todayBages'])
+    ...mapState('achievements', ['progress', 'advice', 'recordBages', 'todayBages']),
+    ...mapState('settings', ['dailyTarget'])
   },
   data () {
     return {

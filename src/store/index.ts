@@ -4,6 +4,8 @@ import achievements from './achievements'
 import { AchievementsInterface } from './entities/Achievements'
 import friends from './friends'
 import { FriendInterface } from './entities/Friend'
+import settings from './settings'
+import { UserDataInterface } from './entities/UserData'
 // import example from './module-example';
 // import { ExampleStateInterface } from './module-example/state';
 
@@ -15,6 +17,7 @@ import { FriendInterface } from './entities/Friend'
 export interface StoreInterface {
   achievements: AchievementsInterface;
   friends: FriendInterface[];
+  settings: UserDataInterface;
 }
 
 export default store(function ({ Vue }) {
@@ -23,7 +26,8 @@ export default store(function ({ Vue }) {
   const Store = new Vuex.Store<StoreInterface>({
     modules: {
       achievements,
-      friends
+      friends,
+      settings
     },
 
     // enable strict mode (adds overhead!)

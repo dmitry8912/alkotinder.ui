@@ -3,18 +3,20 @@
     <q-banner class="bg-primary text-white" rounded>
       Укажите ваш никнейм, пол, вес, чтобы мы могли расчитывать допустимые дозы, и другие параметры.
     </q-banner>
-    <q-input v-model="nickname" label="Никнейм" />
-    <div class="q-pa-lg">
+    <div class="q-pa-sm">
+      <q-input v-model="nicknameSetting" label="Никнейм" class="q-mb-md" />
+      <p>Пол:</p>
       <q-option-group
-        v-model="group"
+        v-model="sexSetting"
         :options="options"
         color="primary"
       />
-      <q-input v-model="weight" label="Вес" />
+      <q-input v-model="weightSetting" label="Вес" class="q-mb-md" />
+      <q-input v-model="dailyTargetSetting" label="Ежедневная цель (литров)" />
     </div>
 
     <q-separator />
-    <q-banner class="bg-orange text-white q-mt-md" rounded>
+    <q-banner class="bg-orange text-white q-mt-md" rounded v-if="!loggedIn">
       Зарегистрируйтесь, чтобы иметь возможность сохранять данные, и накатывать с друзьями. Если вы уже зарегистрированы - войдите в систему.
       <template v-slot:action>
         <q-btn flat label="Регистрация" />
@@ -22,7 +24,7 @@
       </template>
     </q-banner>
 
-    <q-banner class="bg-green text-white q-mt-md" rounded>
+    <q-banner class="bg-green text-white q-mt-md" rounded v-else>
       Вы вошли в систему как {{ nickname }}#ah65d
       <template v-slot:action>
         <q-btn flat label="Копировать ID" />
@@ -34,14 +36,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapActions, mapState } from 'vuex'
 
 export default Vue.extend({
   name: 'Settings',
   data () {
     return {
-      nickname: '',
-      weight: 60,
-      group: '',
+      loggedIn: false,
       options: [
         {
           label: 'Мужчина',
@@ -50,13 +51,47 @@ export default Vue.extend({
         {
           label: 'Женщина',
           value: 'female'
-        },
-        {
-          label: 'Nobody',
-          value: 'female1'
         }
       ]
     }
+  },
+  computed: {
+    ...mapState('settings', ['nickname', 'sex', 'weight', 'dailyTarget']),
+    nicknameSetting: {
+      get () {
+        return this.nickname
+      },
+      set (value) {
+        this.setNickname(value)
+      }
+    },
+    sexSetting: {
+      get () {
+        return this.sex
+      },
+      set (value) {
+        this.setSex(value)
+      }
+    },
+    weightSetting: {
+      get () {
+        return this.weight
+      },
+      set (value) {
+        this.setWeight(value)
+      }
+    },
+    dailyTargetSetting: {
+      get () {
+        return this.dailyTarget
+      },
+      set (value) {
+        this.setDailyTarget(value)
+      }
+    }
+  },
+  methods: {
+    ...mapActions('settings', ['setNickname', 'setSex', 'setWeight', 'setDailyTarget'])
   }
 })
 </script>
