@@ -5,7 +5,9 @@ const state: UserDataInterface = {
   sex: 'male',
   weight: 65,
   id: '',
-  dailyTarget: 5
+  dailyTarget: 5,
+  token: '',
+  isLoggedIn: false
 }
 
 export default state

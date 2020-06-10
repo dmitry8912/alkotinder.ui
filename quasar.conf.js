@@ -54,7 +54,21 @@ module.exports = configure(function (ctx) {
       //            (not treeshaking Quasar; biggest bundle size; convenient)
       all: 'auto',
 
-      components: [],
+      components: [
+        'QSeparator',
+        'QInput',
+        'QSelect',
+        'QRadio',
+        'QPage',
+        'QForm',
+        'QBanner',
+        'QOptionGroup',
+        'QBtn',
+        'QCard',
+        'QCardSection',
+        'QCardActions',
+        'QSpace'
+      ],
       directives: [],
 
       // Quasar plugins

@@ -4,8 +4,8 @@
     <q-card class="q-mb-md">
       <progress-component
         size="100px"
-        :remains="progress.remains"
-        :percent="65"
+        :remains="targetRemains"
+        :percent="targetCompletePercent"
       />
 
       <q-separator />
@@ -52,7 +52,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import AdviceComponent from 'components/Advice.vue'
 import BageComponent from 'components/Bage.vue'
 import ProgressComponent from 'components/Progress.vue'
@@ -62,7 +62,17 @@ export default Vue.extend({
   components: { AdviceComponent, BageComponent, ProgressComponent, AddDrinkComponent },
   computed: {
     ...mapState('achievements', ['progress', 'advice', 'recordBages', 'todayBages']),
-    ...mapState('settings', ['dailyTarget'])
+    ...mapState('settings', ['dailyTarget']),
+    ...mapGetters('achievements', ['todayLitres']),
+    targetCompletePercent (): number {
+      return Number(parseFloat(((this.todayLitres / this.dailyTarget) * 100).toString()).toFixed(0))
+    },
+    targetRemains (): number {
+      if (this.todayLitres < this.dailyTarget) {
+        return Number(parseFloat((this.dailyTarget - this.todayLitres).toString()).toFixed(1))
+      }
+      return 0
+    }
   },
   data () {
     return {

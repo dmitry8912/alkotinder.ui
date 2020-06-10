@@ -8,9 +8,9 @@
 
     <q-card-section>
       <q-form @submit="addToProgress(drink)">
-        <q-select clearable v-model="drink.name" :options="drinkOpts" label="Что пьем" />
-        <q-input clearable v-model="drink.strong" label="Крепость (%)" />
-        <q-input clearable v-model="drink.ml" label="Сколько (мл)" />
+        <q-select clearable v-model="drink.drinkName" :options="drinkOpts" label="Что пьем" />
+        <q-input clearable v-model="drink.strong" label="Крепость (%)" @click="drink.strong = ''" />
+        <q-input clearable v-model="drink.total" label="Сколько (мл)" @click="drink.total = ''" />
         <q-card-actions align="right">
           <q-btn v-close-popup color="primary" label="Добавить" type="submit" />
         </q-card-actions>
@@ -21,23 +21,22 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
+import { mapActions } from 'vuex'
 
 export default defineComponent({
   name: 'AddDrinkComponent',
   data () {
     return {
       drink: {
-        name: '',
+        drinkName: '',
         strong: 0,
-        ml: 0
+        total: 0
       },
       drinkOpts: ['Пиво', 'Коньяк', 'Виски', 'Водка', 'Эль']
     }
   },
   methods: {
-    addToProgress (drink): void {
-      console.log(drink)
-    }
+    ...mapActions('achievements', ['addToProgress'])
   }
 })
 </script>

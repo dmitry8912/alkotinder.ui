@@ -16,7 +16,7 @@
     </div>
 
     <q-separator />
-    <q-banner class="bg-orange text-white q-mt-md" rounded v-if="!loggedIn">
+    <q-banner class="bg-orange text-white q-mt-md" rounded v-if="!isLoggedIn">
       Зарегистрируйтесь, чтобы иметь возможность сохранять данные, и накатывать с друзьями. Если вы уже зарегистрированы - войдите в систему.
       <template v-slot:action>
         <q-btn flat label="Регистрация" />
@@ -25,7 +25,7 @@
     </q-banner>
 
     <q-banner class="bg-green text-white q-mt-md" rounded v-else>
-      Вы вошли в систему как {{ nickname }}#ah65d
+      Вы вошли в систему как {{ nickname }}#{{ id }}
       <template v-slot:action>
         <q-btn flat label="Копировать ID" />
         <q-btn flat label="Выйти" />
@@ -42,7 +42,6 @@ export default Vue.extend({
   name: 'Settings',
   data () {
     return {
-      loggedIn: false,
       options: [
         {
           label: 'Мужчина',
@@ -56,7 +55,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapState('settings', ['nickname', 'sex', 'weight', 'dailyTarget']),
+    ...mapState('settings', ['nickname', 'id', 'sex', 'weight', 'dailyTarget', 'isLoggedIn']),
     nicknameSetting: {
       get () {
         return this.nickname

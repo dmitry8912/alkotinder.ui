@@ -4,4 +4,6 @@ export interface UserDataInterface {
   weight: number;
   id: string;
   dailyTarget: number;
+  token: string;
+  isLoggedIn: boolean;
 }
