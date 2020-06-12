@@ -12,7 +12,7 @@
         <q-input clearable v-model="drink.strong" label="Крепость (%)" @click="drink.strong = ''" />
         <q-input clearable v-model="drink.total" label="Сколько (мл)" @click="drink.total = ''" />
         <q-card-actions align="right">
-          <q-btn v-close-popup color="primary" label="Добавить" type="submit" />
+          <q-btn v-close-popup color="primary" label="Добавить" type="submit" :disable="drink.drinkName == '' || drink.strong <= 0 || drink.total <= 0" />
         </q-card-actions>
       </q-form>
     </q-card-section>
@@ -22,16 +22,19 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
 import { mapActions } from 'vuex'
+import { ProgressDataInterface } from '../../store/entities/ProgressData'
 
 export default defineComponent({
   name: 'AddDrinkComponent',
   data () {
+    const drink: ProgressDataInterface = {
+      date: new Date(),
+      drinkName: '',
+      strong: 0,
+      total: 0
+    }
     return {
-      drink: {
-        drinkName: '',
-        strong: 0,
-        total: 0
-      },
+      drink,
       drinkOpts: ['Пиво', 'Коньяк', 'Виски', 'Водка', 'Эль']
     }
   },

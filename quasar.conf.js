@@ -67,13 +67,17 @@ module.exports = configure(function (ctx) {
         'QCard',
         'QCardSection',
         'QCardActions',
-        'QSpace'
+        'QSpace',
+        'QList',
+        'QDialog',
+        'QPageSticky'
       ],
       directives: [],
 
       // Quasar plugins
       plugins: [
-        'Notify'
+        'Notify',
+        'LocalStorage'
       ]
     },
 
@@ -137,9 +141,9 @@ module.exports = configure(function (ctx) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: 'Quasar App',
-        short_name: 'Quasar App',
-        description: 'A Quasar Framework app',
+        name: 'Alkotinder Smart Spew Tracker',
+        short_name: 'Alkotinder',
+        description: 'Alkotinder Smart Spew Tracker',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',

@@ -13,6 +13,9 @@ const mutation: MutationTree<UserDataInterface> = {
   },
   setDailyTarget (state, payload): void {
     state.dailyTarget = payload
+  },
+  setData (state, payload) {
+    Object.assign(state, payload)
   }
 }
 

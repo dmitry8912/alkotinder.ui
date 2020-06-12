@@ -2,7 +2,8 @@ import { AchievementsInterface } from '../entities/Achievements'
 
 const state: AchievementsInterface = {
   progress: {
-    remains: 2.7,
+    remains: 0,
+    todayPromille: 0,
     progressData: [
     ]
   },
@@ -18,12 +19,6 @@ const state: AchievementsInterface = {
       color: 'red',
       name: 'Станьте лучше',
       value: 'Вы выпили 65% от среднего потребления. Превзойдите самого себя!'
-    },
-    {
-      icon: 'fas fa-skull-crossbones',
-      color: 'grey-5',
-      name: 'Опасная зона',
-      value: 'Вы еще не приблизились к переделу'
     }
   ],
   recordBages: [

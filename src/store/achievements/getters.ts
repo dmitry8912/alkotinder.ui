@@ -5,13 +5,21 @@ import state from './state'
 
 const getters: GetterTree<AchievementsInterface, StoreInterface> = {
   todayLitres (): number {
-    console.log('todayLitres', state.progress.progressData.reduce((total, current) => {
-      console.log('arh.total', total)
-      console.log('arh.cr', current.total)
-      return Number(total) + Number(current.total)
-    }, 0) / 1000)
     return state.progress.progressData.reduce((total, current) => {
-      return Number(total) + Number(current.total)
+      if ((new Date()).getDate() === (new Date(current.date)).getDate()) {
+        return Number(total) + Number(current.total)
+      } else {
+        return 0
+      }
+    }, 0) / 1000
+  },
+  todayPureAlcohol (): number {
+    return state.progress.progressData.reduce((total, current) => {
+      if ((new Date()).getDate() === (new Date(current.date)).getDate()) {
+        return Number(total) + (Number(current.total) * Number(current.strong))
+      } else {
+        return 0
+      }
     }, 0) / 1000
   }
 }

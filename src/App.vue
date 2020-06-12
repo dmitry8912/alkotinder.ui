@@ -5,7 +5,18 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: 'Alkotinder'
-}
+import Vue from 'vue'
+import { mapActions } from 'vuex'
+
+export default Vue.extend({
+  name: 'Alkotinder',
+  methods: {
+    ...mapActions('achievements', ['getAchievements']),
+    ...mapActions('settings', ['getSettings'])
+  },
+  mounted () {
+    this.getSettings()
+    this.getAchievements()
+  }
+})
 </script>
