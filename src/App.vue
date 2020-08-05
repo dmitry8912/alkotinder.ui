@@ -12,11 +12,13 @@ export default Vue.extend({
   name: 'Alkotinder',
   methods: {
     ...mapActions('achievements', ['getAchievements']),
-    ...mapActions('settings', ['getSettings'])
+    ...mapActions('settings', ['getSettings']),
+    ...mapActions('references', ['loadDrinks'])
   },
   mounted () {
     this.getSettings()
     this.getAchievements()
+    this.loadDrinks()
   }
 })
 </script>

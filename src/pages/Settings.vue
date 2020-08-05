@@ -4,7 +4,26 @@
       Укажите ваш никнейм, пол, вес, чтобы мы могли расчитывать допустимые дозы, и другие параметры.
     </q-banner>
     <div class="q-pa-sm">
-      <q-input v-model="nicknameSetting" label="Никнейм" class="q-mb-md" />
+      <div class="row">
+        <div class="col-2">
+          <q-avatar class="q-mt-sm" @click="uploadAvatar">
+            <img :src="avatar">
+          </q-avatar>
+          <q-uploader
+            :url="uploadUrl"
+            max-total-size="2097152"
+            ref="avatarPicker"
+            @added="startUpload"
+            @uploaded="endUpload"
+            v-show="false"
+            :headers="() => [{ name: 'Authorization', value: 'Bearer '+apiToken }]"
+            field-name="avatar-photo"
+          />
+        </div>
+        <div class="col">
+          <q-input v-model="nicknameSetting" label="Никнейм" class="q-mb-md" />
+        </div>
+      </div>
       <p>Пол:</p>
       <q-option-group
         v-model="sexSetting"
@@ -17,18 +36,16 @@
 
     <q-separator />
     <q-banner class="bg-orange text-white q-mt-md" rounded v-if="!isLoggedIn">
-      Зарегистрируйтесь, чтобы иметь возможность сохранять данные, и накатывать с друзьями. Если вы уже зарегистрированы - войдите в систему.
+      Авторизуйтесь с помощью Google-аккаунта, чтобы накатывать с друзьями!
       <template v-slot:action>
-        <q-btn flat label="Регистрация" />
-        <q-btn flat label="Войти" />
+        <q-btn flat label="Войти" @click="getStateToken" />
       </template>
     </q-banner>
 
     <q-banner class="bg-green text-white q-mt-md" rounded v-else>
-      Вы вошли в систему как {{ nickname }}#{{ id }}
+      Вы вошли как {{ email }}
       <template v-slot:action>
-        <q-btn flat label="Копировать ID" />
-        <q-btn flat label="Выйти" />
+        <q-btn flat label="Выйти" @click="clearApiToken" />
       </template>
     </q-banner>
   </q-page>
@@ -36,7 +53,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex'
+import { Loading } from 'quasar'
+import { api } from 'src/config/config'
 
 export default Vue.extend({
   name: 'Settings',
@@ -45,23 +64,27 @@ export default Vue.extend({
       options: [
         {
           label: 'Мужчина',
-          value: 'male'
+          value: 'm'
         },
         {
           label: 'Женщина',
-          value: 'female'
+          value: 'f'
         }
       ]
     }
   },
   computed: {
-    ...mapState('settings', ['nickname', 'id', 'sex', 'weight', 'dailyTarget', 'isLoggedIn']),
+    ...mapState('settings', ['nickname', 'id', 'sex', 'weight', 'dailyTarget', 'deviceUid', 'email', 'apiToken']),
+    ...mapGetters('settings', ['isLoggedIn', 'avatar']),
+    uploadUrl () {
+      return api + "api/avatar"
+    },
     nicknameSetting: {
       get () {
         return this.nickname
       },
       set (value) {
-        this.setNickname(value)
+        (this as any).setNickname(value)
       }
     },
     sexSetting: {
@@ -69,7 +92,7 @@ export default Vue.extend({
         return this.sex
       },
       set (value) {
-        this.setSex(value)
+        (this as any).setSex(value)
       }
     },
     weightSetting: {
@@ -77,7 +100,7 @@ export default Vue.extend({
         return this.weight
       },
       set (value) {
-        this.setWeight(value)
+        (this as any).setWeight(value)
       }
     },
     dailyTargetSetting: {
@@ -85,12 +108,26 @@ export default Vue.extend({
         return this.dailyTarget
       },
       set (value) {
-        this.setDailyTarget(value)
+        (this as any).setDailyTarget(value)
       }
     }
   },
   methods: {
-    ...mapActions('settings', ['setNickname', 'setSex', 'setWeight', 'setDailyTarget'])
+    ...mapActions('settings', ['setNickname', 'setSex', 'setWeight', 'setAvatar', 'setDailyTarget', 'getStateToken', 'getApiToken', 'clearApiToken']),
+    uploadAvatar: function () {
+      if (this.isLoggedIn) {
+        (this as any).$refs.avatarPicker.pickFiles()
+      }
+    },
+    startUpload () {
+      (Loading as any).show();
+      (this as any).$refs.avatarPicker.upload()
+    },
+    endUpload (info: any) {
+      (this as any).setAvatar(JSON.parse(info.xhr.response).path);
+      (Loading as any).hide();
+      (this as any).$refs.avatarPicker.reset()
+    }
   }
 })
 </script>

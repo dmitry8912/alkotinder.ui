@@ -6,6 +6,8 @@ import friends from './friends'
 import { FriendInterface } from './entities/Friend'
 import settings from './settings'
 import { UserDataInterface } from './entities/UserData'
+import references from './references'
+import { ReferencesInterface } from "src/store/entities/References"
 // import example from './module-example';
 // import { ExampleStateInterface } from './module-example/state';
 
@@ -18,6 +20,7 @@ export interface StoreInterface {
   achievements: AchievementsInterface;
   friends: FriendInterface[];
   settings: UserDataInterface;
+  references: ReferencesInterface;
 }
 
 export default store(function ({ Vue }) {
@@ -27,7 +30,8 @@ export default store(function ({ Vue }) {
     modules: {
       achievements,
       friends,
-      settings
+      settings,
+      references
     },
 
     // enable strict mode (adds overhead!)

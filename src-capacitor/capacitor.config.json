@@ -1,0 +1,7 @@
+{
+  "appId": "org.alkotinder.devio",
+  "appName": "Alkotinder",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}

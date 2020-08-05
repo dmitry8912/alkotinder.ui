@@ -1,0 +1,10 @@
+{
+  "appId": "org.alkotinder.devio",
+  "appName": "Alkotinder",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "server": {
+    "url": "http://192.168.0.2:8088"
+  }
+}

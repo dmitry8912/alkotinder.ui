@@ -114,6 +114,7 @@ export default Vue.extend({
       }
       if (concentration >= 3) {
         colorVal = 'red-14'
+        colorVal = 'red-14'
         valueVal = 'Видимо, вы уже мертвы, столько пить нельзя'
       }
       const danger: BageInterface = {

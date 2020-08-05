@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Alkotinder</string>
+    <string name="title_activity_main">Alkotinder</string>
+    <string name="package_name">org.alkotinder.devio</string>
+    <string name="custom_url_scheme">org.alkotinder.devio</string>
+</resources>

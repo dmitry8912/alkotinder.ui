@@ -1,6 +1,8 @@
+import { DrinkInterface } from 'src/store/entities/Drink'
+
 export interface ProgressDataInterface {
+  uid: string;
   date: Date;
-  drinkName: string;
-  strong: number;
+  drinkName: DrinkInterface;
   total: number;
 }

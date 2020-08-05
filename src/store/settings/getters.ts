@@ -1,6 +1,7 @@
 import { GetterTree } from 'vuex'
 import { StoreInterface } from '../index'
 import { UserDataInterface } from '../entities/UserData'
+import { api } from 'src/config/config'
 import state from './state'
 
 const getters: GetterTree<UserDataInterface, StoreInterface> = {
@@ -11,7 +12,13 @@ const getters: GetterTree<UserDataInterface, StoreInterface> = {
     return state.nickname
   },
   kVidmark (): number {
-    return state.sex === 'male' ? 0.7 : 0.6
+    return state.sex === 'm' ? 0.7 : 0.6
+  },
+  isLoggedIn (): boolean {
+    return state.apiToken.trim() !== ""
+  },
+  avatar (): string {
+    return api + "storage/images/" + state.avatar
   }
 }
 

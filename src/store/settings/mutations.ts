@@ -11,8 +11,20 @@ const mutation: MutationTree<UserDataInterface> = {
   setWeight (state, payload): void {
     state.weight = payload
   },
+  setAvatar (state, payload): void {
+    state.avatar = payload
+  },
   setDailyTarget (state, payload): void {
     state.dailyTarget = payload
+  },
+  setApiToken (state, payload): void {
+    state.apiToken = payload
+  },
+  clearApiToken (state): void {
+    state.apiToken = ''
+  },
+  setStateToken (state, payload): void {
+    state.stateToken = payload
   },
   setData (state, payload) {
     Object.assign(state, payload)
